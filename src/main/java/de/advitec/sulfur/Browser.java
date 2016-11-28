@@ -3,12 +3,15 @@ package de.advitec.sulfur;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
 
 /**
@@ -43,6 +46,8 @@ public class Browser {
         browser = new FirefoxDriver();
       } else if (browserName.equalsIgnoreCase("chrome")) {
         browser = new ChromeDriver();
+      } else if((browserName.equalsIgnoreCase("htmlunit"))) {
+        browser = new HtmlUnitDriver(BrowserVersion.CHROME, true);
       }
       browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -145,6 +150,7 @@ public class Browser {
    * @return true, if the page title equals the expected title.
    */
   public static boolean titleIs(String value) {
+    System.out.println(browser.getPageSource());
     return browser.getTitle().equals(value);
   }
 
